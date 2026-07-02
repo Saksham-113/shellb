@@ -1,6 +1,9 @@
 #include "shellbExecute.h"
 #include "shellbBuiltins.h"
+#include <cerrno>
 #include <cstdio>
+#include <cstdlib>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <unistd.h>
@@ -20,7 +23,12 @@ int shellb_launch(std::vector<std::string> args) {
         copy_args.push_back(nullptr);
 
         execvp(copy_args[0], copy_args.data());
-        perror("shellb");
+        if (errno == ENOENT) {
+            std::cerr << "shellb: command not found\n";
+        } else {
+            perror("shellb");
+        }
+        exit(EXIT_FAILURE);
     }
     else if (pid > 0) {
         do {
