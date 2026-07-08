@@ -1,5 +1,6 @@
 #include "shellbExecute.h"
 #include "shellbBuiltins.h"
+#include "shellbEditor.h"
 #include <cerrno>
 #include <cstdio>
 #include <cstdlib>
@@ -13,6 +14,8 @@
 int shellb_launch(std::vector<std::string> args) {
     pid_t pid, wpid;
     int status;
+
+    disable_raw_mode();
 
     pid = fork();
     if (pid == 0) {
@@ -38,6 +41,8 @@ int shellb_launch(std::vector<std::string> args) {
     else {
         perror("shellb");
     }
+
+    enable_raw_mode();
     return 1;
 }
 

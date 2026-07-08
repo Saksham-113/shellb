@@ -1,4 +1,6 @@
 #include "shellbBuiltins.h"
+#include "shell.h"
+#include <vector>
 #include <iostream>
 #include <ostream>
 #include <unistd.h>
@@ -11,7 +13,8 @@ std::vector<std::string> builtin_str = {
     "help",
     "exit",
     "showpath",
-    "hidepath"
+    "hidepath",
+    "history"
 };
 
 int (*builtin_func[]) (const std::vector<std::string>&) = {
@@ -19,7 +22,8 @@ int (*builtin_func[]) (const std::vector<std::string>&) = {
     &shellb_help,
     &shellb_exit,
     &shellb_showpath,
-    &shellb_hidepath
+    &shellb_hidepath,
+    &shellb_history
 };
 
 bool showCwd = true;
@@ -81,3 +85,9 @@ int shellb_help(const std::vector<std::string> &args) {
     return 1;
 }
 
+int shellb_history(const std::vector<std::string> &args) {
+    for (std::string s : command_history) {
+        std::cout << s << std::endl;
+    }
+    return 1;
+}
