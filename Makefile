@@ -3,3 +3,6 @@ all:
 
 clean:
 	rm -f shell
+
+it:
+	g++ test.cpp -o test
