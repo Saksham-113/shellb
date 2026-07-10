@@ -11,6 +11,7 @@ int shellb_exit(const std::vector<std::string>& args);
 int shellb_showpath(const std::vector<std::string>& args);
 int shellb_hidepath(const std::vector<std::string>& args);
 int shellb_history(const std::vector<std::string>& args);
+int shellb_clear(const std::vector<std::string>& args);
 
 extern std::vector<std::string> builtin_str;
 

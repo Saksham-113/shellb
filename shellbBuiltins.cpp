@@ -1,5 +1,6 @@
 #include "shellbBuiltins.h"
 #include "shell.h"
+#include "shellbEditor.h"
 #include <vector>
 #include <iostream>
 #include <ostream>
@@ -14,7 +15,8 @@ std::vector<std::string> builtin_str = {
     "exit",
     "showpath",
     "hidepath",
-    "history"
+    "history",
+    "clear"
 };
 
 int (*builtin_func[]) (const std::vector<std::string>&) = {
@@ -23,7 +25,8 @@ int (*builtin_func[]) (const std::vector<std::string>&) = {
     &shellb_exit,
     &shellb_showpath,
     &shellb_hidepath,
-    &shellb_history
+    &shellb_history,
+    &shellb_clear
 };
 
 bool showCwd = true;
@@ -89,5 +92,10 @@ int shellb_history(const std::vector<std::string> &args) {
     for (std::string s : command_history) {
         std::cout << s << std::endl;
     }
+    return 1;
+}
+
+int shellb_clear(const std::vector<std::string> &args) {
+    clear_screen();
     return 1;
 }
